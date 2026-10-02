@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bsuacu2e8cb2y"]
+
+[ext_resource type="PackedScene" uid="uid://0d51gdyonwpt" path="res://Enemy.tscn" id="1_wbfu4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_j5k5y"]
+
+[node name="Game" type="Node3D" unique_id=1938844436]
+
+[node name="Enemy" parent="." unique_id=2055811584 instance=ExtResource("1_wbfu4")]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Enemy" unique_id=458675935]
+mesh = SubResource("BoxMesh_j5k5y")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=867802795]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1444622644]
