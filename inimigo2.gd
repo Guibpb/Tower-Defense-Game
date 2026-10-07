@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-const SPEED = -1.0
+const SPEED = 1.0
 var health = 100
 
 func _physics_process(delta):

@@ -1,8 +1,15 @@
 [gd_scene format=3 uid="uid://bsuacu2e8cb2y"]
 
 [ext_resource type="PackedScene" uid="uid://0d51gdyonwpt" path="res://Enemy.tscn" id="1_wbfu4"]
+[ext_resource type="Script" uid="uid://css4pr78qcfq6" path="res://inimigo2.gd" id="2_xkndl"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_j5k5y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vtaim"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wbfu4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_koqf5"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vtaim"]
 
@@ -13,23 +20,38 @@ margin = 2.858
 size = Vector2(50, 50)
 
 [node name="Game" type="Node3D" unique_id=1938844436]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.50910604, 0)
 
 [node name="Enemy" parent="." unique_id=2055811584 instance=ExtResource("1_wbfu4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5703924, 1.4968295)
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Enemy" unique_id=458675935]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0025283098, 0.011935711)
 mesh = SubResource("BoxMesh_j5k5y")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Enemy" unique_id=1678868284]
+shape = SubResource("BoxShape3D_vtaim")
 
 [node name="Enemy2" parent="." unique_id=1633178134 instance=ExtResource("1_wbfu4")]
-up_direction = Vector3(0.70710677, 0.70710677, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13590717, 0.5789726, -3.2646132)
+up_direction = Vector3(0.7071068, 0.7071068, 0)
+script = ExtResource("2_xkndl")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Enemy2" unique_id=1344248188]
-mesh = SubResource("BoxMesh_j5k5y")
+mesh = SubResource("BoxMesh_wbfu4")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Enemy2" unique_id=640380753]
+shape = SubResource("BoxShape3D_koqf5")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=867802795]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5)
+transform = Transform3D(1, 0, 0, 0, 0.7558874, 0.6547017, 0, -0.6547017, 0.7558874, -0.06251383, 3.950419, 3.7934208)
 current = true
+fov = 92.9838
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1444622644]
+transform = Transform3D(1, 0, 0, 0, -0.901961, 0.43181747, 0, -0.43181747, -0.901961, 0, 4.771185, -6.542677)
+light_energy = 1.475
+shadow_enabled = true
 
 [node name="Chão" type="Node3D" parent="." unique_id=180397138]
 
@@ -39,5 +61,6 @@ physics_material_override = SubResource("PhysicsMaterial_vtaim")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Chão/StaticBody3D" unique_id=64052463]
 shape = SubResource("WorldBoundaryShape3D_vtaim")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Chão" unique_id=1971918651]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Chão/StaticBody3D" unique_id=1971918651]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04456365, 0)
 mesh = SubResource("PlaneMesh_wbfu4")
