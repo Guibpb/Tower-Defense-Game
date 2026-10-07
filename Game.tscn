@@ -4,6 +4,14 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_j5k5y"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vtaim"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_vtaim"]
+margin = 2.858
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wbfu4"]
+size = Vector2(50, 50)
+
 [node name="Game" type="Node3D" unique_id=1938844436]
 
 [node name="Enemy" parent="." unique_id=2055811584 instance=ExtResource("1_wbfu4")]
@@ -11,8 +19,25 @@
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Enemy" unique_id=458675935]
 mesh = SubResource("BoxMesh_j5k5y")
 
+[node name="Enemy2" parent="." unique_id=1633178134 instance=ExtResource("1_wbfu4")]
+up_direction = Vector3(0.70710677, 0.70710677, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Enemy2" unique_id=1344248188]
+mesh = SubResource("BoxMesh_j5k5y")
+
 [node name="Camera3D" type="Camera3D" parent="." unique_id=867802795]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5)
 current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1444622644]
+
+[node name="Chão" type="Node3D" parent="." unique_id=180397138]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Chão" unique_id=1775617526]
+physics_material_override = SubResource("PhysicsMaterial_vtaim")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Chão/StaticBody3D" unique_id=64052463]
+shape = SubResource("WorldBoundaryShape3D_vtaim")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Chão" unique_id=1971918651]
+mesh = SubResource("PlaneMesh_wbfu4")
