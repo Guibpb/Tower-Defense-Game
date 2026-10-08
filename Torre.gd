@@ -3,7 +3,7 @@ extends CharacterBody3D
 @export var speed = 0
 @export var gravity = 9.8
 @export var shot_range = 10.0
-@export var shot_interval = 1.5
+@export var shot_interval = 0.3
 @export var projectile_scene: PackedScene = preload("res://Projectile.tscn")
 var health = 100
 var shot_timer = 0.0
@@ -42,9 +42,3 @@ func shoot_at_nearest_enemy():
 	projectile.global_position = global_position + direction * 0.8 + Vector3.UP * 0.2
 	projectile.direction = direction
 	shot_timer = shot_interval
-
-func take_damage(amount):
-	health -= amount
-	print(name, " recebeu ", amount, " de dano. Vida: ", health)
-	if health <= 0:
-		queue_free()
