@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://bsuacu2e8cb2y"]
 
 [ext_resource type="Script" uid="uid://cake722v5sjk4" path="res://Cena.gd" id="1_u44n3"]
-[ext_resource type="PackedScene" uid="uid://0d51gdyonwpt" path="res://Enemy.tscn" id="1_wbfu4"]
-[ext_resource type="Script" uid="uid://ccii7umfxtngt" path="res://Torre.gd" id="2_xkndl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vtaim"]
 
@@ -25,13 +23,6 @@ point_count = 8
 [node name="Game" type="Node3D" unique_id=1938844436]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.50910604, 0)
 script = ExtResource("1_u44n3")
-
-[node name="Torre" parent="." unique_id=1633178134 instance=ExtResource("1_wbfu4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 7.9038486)
-script = ExtResource("2_xkndl")
-speed = 0
-shot_range = 6
-shot_interval = 1
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=867802795]
 transform = Transform3D(-0.18232116, 0.6190583, -0.76388866, 0, 0.7769104, 0.6296112, 0.98323905, 0.114791445, -0.1416472, -7.8631897, 6.493578, 4.7095504)
@@ -115,6 +106,19 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 26
 text = "Play"
 
+[node name="AreaPosicionamento" type="Button" parent="HUD"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+flat = true
+text = ""
+mouse_default_cursor_shape = 2
+
 [node name="MenuJogo" type="Control" parent="HUD"]
 visible = false
 layout_mode = 3
@@ -123,6 +127,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Fundo" type="ColorRect" parent="HUD/MenuJogo"]
 layout_mode = 1
@@ -131,33 +136,66 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.015, 0.035, 0.04, 0.55)
+color = Color(0.015, 0.035, 0.04, 0.18)
+mouse_filter = 2
 
-[node name="Centralizar" type="CenterContainer" parent="HUD/MenuJogo"]
+[node name="Painel" type="PanelContainer" parent="HUD/MenuJogo"]
+custom_minimum_size = Vector2(380, 590)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 76.0
+offset_right = 404.0
+offset_bottom = 666.0
 
-[node name="Painel" type="PanelContainer" parent="HUD/MenuJogo/Centralizar"]
-custom_minimum_size = Vector2(360, 190)
+[node name="Conteudo" type="VBoxContainer" parent="HUD/MenuJogo/Painel"]
 layout_mode = 2
+theme_override_constants/separation = 12
 
-[node name="Conteudo" type="VBoxContainer" parent="HUD/MenuJogo/Centralizar/Painel"]
+[node name="Titulo" type="Label" parent="HUD/MenuJogo/Painel/Conteudo"]
 layout_mode = 2
-theme_override_constants/separation = 22
-alignment = 1
-
-[node name="Aviso" type="Label" parent="HUD/MenuJogo/Centralizar/Painel/Conteudo"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Pronto para defender?"
+theme_override_font_sizes/font_size = 28
+text = "Torres disponíveis"
 horizontal_alignment = 1
 
-[node name="Play" type="Button" parent="HUD/MenuJogo/Centralizar/Painel/Conteudo"]
-custom_minimum_size = Vector2(220, 58)
+[node name="Instrucao" type="Label" parent="HUD/MenuJogo/Painel/Conteudo"]
+custom_minimum_size = Vector2(340, 68)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Play"
+text = "Escolha uma torre e clique no terreno para posicioná-la. Você pode colocar várias."
+autowrap_mode = 3
+
+[node name="TorreBasica" type="Button" parent="HUD/MenuJogo/Painel/Conteudo"]
+custom_minimum_size = Vector2(340, 54)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+toggle_mode = true
+text = "Torre básica"
+
+[node name="InfoBasica" type="Label" parent="HUD/MenuJogo/Painel/Conteudo"]
+layout_mode = 2
+text = "Dano 25  •  Alcance 6  •  Disparo a cada 1 s"
+horizontal_alignment = 1
+
+[node name="TorreRapida" type="Button" parent="HUD/MenuJogo/Painel/Conteudo"]
+custom_minimum_size = Vector2(340, 54)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+toggle_mode = true
+text = "Torre rápida"
+
+[node name="InfoRapida" type="Label" parent="HUD/MenuJogo/Painel/Conteudo"]
+layout_mode = 2
+text = "Dano 10  •  Alcance 4  •  Disparo a cada 0,3 s"
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="HUD/MenuJogo/Painel/Conteudo"]
+custom_minimum_size = Vector2(340, 68)
+layout_mode = 2
+text = "Selecione uma torre para começar a posicioná-la."
+autowrap_mode = 3
+
+[node name="Comecar" type="Button" parent="HUD/MenuJogo/Painel/Conteudo"]
+custom_minimum_size = Vector2(340, 58)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Começar jogo"

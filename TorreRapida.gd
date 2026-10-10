@@ -2,9 +2,9 @@ extends CharacterBody3D
 
 @export var speed = 0
 @export var gravity = 9.8
-@export var shot_range = 6
-@export var shot_interval = 1
-@export var damage = 25
+@export var shot_range = 4
+@export var shot_interval = 0.3
+@export var damage = 10
 @export var projectile_scene: PackedScene = preload("res://Projectile.tscn")
 var health = 1
 var shot_timer = 0.0
