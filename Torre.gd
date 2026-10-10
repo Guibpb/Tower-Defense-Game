@@ -2,10 +2,10 @@ extends CharacterBody3D
 
 @export var speed = 0
 @export var gravity = 9.8
-@export var shot_range = 10.0
-@export var shot_interval = 0.3
+@export var shot_range = 6
+@export var shot_interval = 1
 @export var projectile_scene: PackedScene = preload("res://Projectile.tscn")
-var health = 100
+var health = 1
 var shot_timer = 0.0
 
 func _ready():
@@ -21,17 +21,22 @@ func _physics_process(delta):
 	move_and_slide()
 	shot_timer -= delta
 	if shot_timer <= 0.0:
-		shoot_at_nearest_enemy()
+		shoot_at_first_enemy()
 
-func shoot_at_nearest_enemy():
+
+func shoot_at_first_enemy():
 	var target = null
-	var nearest_distance = shot_range
+	var furthest_progress = -1.0
 	for enemy in get_tree().get_nodes_in_group("inimigos"):
 		if enemy == self or not is_instance_valid(enemy):
 			continue
+		var path_follow := enemy.get_parent() as PathFollow3D
+		if path_follow == null:
+			continue
+
 		var distance = global_position.distance_to(enemy.global_position)
-		if distance < nearest_distance:
-			nearest_distance = distance
+		if distance <= shot_range and path_follow.progress > furthest_progress:
+			furthest_progress = path_follow.progress
 			target = enemy
 	if target == null:
 		return

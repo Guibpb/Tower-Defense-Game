@@ -15,21 +15,26 @@ size = Vector2(50, 50)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tt7e2"]
 albedo_color = Color(0.060714282, 0.425, 0.16392855, 1)
 
+[sub_resource type="Curve3D" id="Curve3D_j5k5y"]
+_data = {
+"points": PackedVector3Array(1.0817556, -0.0001487732, 1.1079438, -1.0817556, 0.0001487732, -1.1079438, -6.646316, -0.35878247, 3.9803386, 0, 0, 0, 0, 0, 0, -9.9707155, -0.35878247, 0.6943369, 0, 0, 0, 0, 0, 0, -13.50082, -0.35878247, 0.7514789, 0, 0, 0, 0, 0, 0, -16.109888, -0.35878247, -2.4324222, 0, 0, 0, 0, 0, 0, -11.510035, -0.35878247, -6.906927, 0, 0, 0, 0, 0, 0, -10.185363, -0.35878247, -5.8193665, 0, 0, 0, 0, 0, 0, -8.53861, -0.35878247, -4.1214924, 0, 0, 0, 0, 0, 0, -7.3132067, -0.35878152, -5.6601486),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
+
 [node name="Game" type="Node3D" unique_id=1938844436]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.50910604, 0)
 script = ExtResource("1_u44n3")
-
-[node name="Enemy" parent="." unique_id=2055811584 instance=ExtResource("1_wbfu4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7671554, 1.9608226, -1.0339034)
 
 [node name="Torre" parent="." unique_id=1633178134 instance=ExtResource("1_wbfu4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 7.9038486)
 script = ExtResource("2_xkndl")
 speed = 0
-shot_interval = 0.3
+shot_range = 6
+shot_interval = 1
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=867802795]
-transform = Transform3D(0.19952482, -0.20200837, 0.95884436, 0, 0.9785197, 0.20615353, -0.9798928, -0.041132748, 0.19523896, 5.946782, 1.6925802, 4.0994544)
+transform = Transform3D(-0.18232116, 0.6190583, -0.76388866, 0, 0.7769104, 0.6296112, 0.98323905, 0.114791445, -0.1416472, -7.8631897, 6.493578, 4.7095504)
 current = true
 fov = 70.3125
 
@@ -47,6 +52,21 @@ physics_material_override = SubResource("PhysicsMaterial_vtaim")
 shape = SubResource("WorldBoundaryShape3D_vtaim")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Chão/StaticBody3D" unique_id=1971918651]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12840104, -9.36985e-05, -0.22436523)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7862451, 0.1208331, 0.4135188)
 mesh = SubResource("PlaneMesh_wbfu4")
 surface_material_override/0 = SubResource("StandardMaterial3D_tt7e2")
+
+[node name="Path3D" type="Path3D" parent="." unique_id=416347350]
+transform = Transform3D(-0.7062941, 0, 0.70791835, 0, 1, 0, -0.70791835, 0, -0.7062941, -7.224251, 0.35878283, -2.743071)
+curve = SubResource("Curve3D_j5k5y")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=922765045]
+
+[node name="VidaLabel" type="Label" parent="HUD" unique_id=1998607069]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 220.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+text = "100"

@@ -1,6 +1,6 @@
 extends Area3D
 
-@export var speed = 8.0
+@export var speed = 20.0
 @export var damage = 25
 var direction = Vector3.ZERO
 var shooter: Node3D
