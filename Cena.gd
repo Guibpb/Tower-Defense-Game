@@ -9,14 +9,20 @@ const ENEMY_SCENE = preload("res://Enemy.tscn")
 
 @onready var caminho: Path3D = $Path3D
 @onready var vida_label: Label = $HUD/VidaLabel
+@onready var menu_inicial: Control = $HUD/MenuInicial
+@onready var menu_jogo: Control = $HUD/MenuJogo
+@onready var botao_menu_play: Button = $HUD/MenuInicial/Centralizar/Conteudo/Play
+@onready var botao_jogo_play: Button = $HUD/MenuJogo/Centralizar/Painel/Conteudo/Play
 
 func _ready():
+	get_tree().paused = true
 	_update_health_label()
+	botao_menu_play.pressed.connect(_on_menu_play_pressed)
+	botao_jogo_play.pressed.connect(_on_game_play_pressed)
+
 	if caminho.curve == null or caminho.curve.get_baked_length() <= 0.0:
 		push_error("O Path3D precisa ter uma curva com pelo menos dois pontos.")
-		return
-
-	spawn_queue()
+		botao_jogo_play.disabled = true
 
 func spawn_queue():
 	for i in range(enemy_count):
@@ -39,3 +45,12 @@ func _on_enemy_reached_end() -> void:
 
 func _update_health_label() -> void:
 	vida_label.text = "%d" % player_health
+
+func _on_menu_play_pressed() -> void:
+	menu_inicial.hide()
+	menu_jogo.show()
+
+func _on_game_play_pressed() -> void:
+	menu_jogo.hide()
+	get_tree().paused = false
+	spawn_queue()

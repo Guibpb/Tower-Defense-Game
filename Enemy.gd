@@ -31,6 +31,5 @@ func _physics_process(delta) -> void:
 
 func take_damage(amount):
 	health -= amount
-	print(name, " recebeu ", amount, " de dano. Vida: ", health)
 	if health <= 0:
 		queue_free()
