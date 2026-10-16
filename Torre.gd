@@ -1,34 +1,44 @@
 extends CharacterBody3D
 
-@export var speed = 0
-@export var gravity = 9.8
-@export var shot_range = 3.5
-@export var shot_interval = 1
-@export var damage = 25
+@export var shot_range: float = 3.5
+@export var shot_interval: float = 1.0
+@export var damage: int = 25
 @export var projectile_scene: PackedScene = preload("res://Projectile.tscn")
-var health = 1
-var shot_timer = 0.0
 
-func _ready():
+var active := false
+var shot_timer := 0.0
+
+func _ready() -> void:
 	add_to_group("torres")
-	_criar_visual_de_alcance()
+	set_physics_process(false)
+	_atualizar_cor(Color(0.34, 0.37, 0.39, 1.0))
 
-func _physics_process(delta):
-	velocity.x = 0.0
-	velocity.z = speed
-	if not is_on_floor():
-		velocity.y -= gravity * delta
+func ativar(rapida: bool) -> void:
+	active = true
+	if rapida:
+		shot_range = 2.5
+		shot_interval = 0.3
+		damage = 10
+		_atualizar_cor(Color(1.0, 0.56, 0.2, 1.0))
 	else:
-		velocity.y = 0.0
-	move_and_slide()
+		shot_range = 3.5
+		shot_interval = 1.0
+		damage = 25
+		_atualizar_cor(Color(0.18, 0.58, 0.78, 1.0))
+	shot_timer = 0.0
+	_criar_visual_de_alcance()
+	set_physics_process(true)
+
+func _physics_process(delta: float) -> void:
+	if not active:
+		return
 	shot_timer -= delta
 	if shot_timer <= 0.0:
 		shoot_at_first_enemy()
 
-
-func shoot_at_first_enemy():
+func shoot_at_first_enemy() -> void:
 	var target = null
-	var furthest_progress = -1.0
+	var furthest_progress := -1.0
 	for enemy in get_tree().get_nodes_in_group("inimigos"):
 		if enemy == self or not is_instance_valid(enemy):
 			continue
@@ -36,13 +46,14 @@ func shoot_at_first_enemy():
 		if path_follow == null:
 			continue
 
-		var distance = global_position.distance_to(enemy.global_position)
+		var distance := global_position.distance_to(enemy.global_position)
 		if distance <= shot_range and path_follow.progress > furthest_progress:
 			furthest_progress = path_follow.progress
 			target = enemy
 	if target == null:
 		return
-	var direction = (target.global_position - global_position).normalized()
+
+	var direction: Vector3 = (target.global_position - global_position).normalized()
 	var projectile = projectile_scene.instantiate()
 	projectile.shooter = self
 	projectile.damage = damage
@@ -51,7 +62,19 @@ func shoot_at_first_enemy():
 	projectile.direction = direction
 	shot_timer = shot_interval
 
+func _atualizar_cor(cor: Color) -> void:
+	var visual := get_node_or_null("MeshInstance3D") as MeshInstance3D
+	if visual == null:
+		return
+	var material := StandardMaterial3D.new()
+	material.albedo_color = cor
+	visual.material_override = material
+
 func _criar_visual_de_alcance() -> void:
+	var indicador_existente := get_node_or_null("IndicadorAlcance") as MeshInstance3D
+	if indicador_existente != null:
+		indicador_existente.queue_free()
+
 	var segmentos := 64
 	var espessura := 0.055
 	var vertices := PackedVector3Array()
@@ -74,7 +97,7 @@ func _criar_visual_de_alcance() -> void:
 	arrays[Mesh.ARRAY_VERTEX] = vertices
 	arrays[Mesh.ARRAY_INDEX] = indices
 	var anel := ArrayMesh.new()
-	_anel_add_surface(anel, arrays)
+	anel.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	var material := StandardMaterial3D.new()
 	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
@@ -88,6 +111,3 @@ func _criar_visual_de_alcance() -> void:
 	visual.mesh = anel
 	visual.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	add_child(visual)
-
-func _anel_add_surface(anel: ArrayMesh, arrays: Array) -> void:
-	anel.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)

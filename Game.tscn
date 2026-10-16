@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bsuacu2e8cb2y"]
 
 [ext_resource type="Script" uid="uid://cake722v5sjk4" path="res://Cena.gd" id="1_u44n3"]
+[ext_resource type="PackedScene" path="res://TorreBasica.tscn" id="2_torre"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vtaim"]
 
@@ -11,7 +12,9 @@ margin = 2.858
 size = Vector2(50, 50)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tt7e2"]
-albedo_color = Color(0.060714282, 0.425, 0.16392855, 1)
+albedo_color = Color(0.18, 0.2, 0.23, 1)
+metallic = 0.25
+roughness = 0.65
 
 [sub_resource type="Curve3D" id="Curve3D_j5k5y"]
 _data = {
@@ -51,19 +54,69 @@ surface_material_override/0 = SubResource("StandardMaterial3D_tt7e2")
 transform = Transform3D(-0.7062941, 0, 0.70791835, 0, 1, 0, -0.70791835, 0, -0.7062941, -7.224251, 0.35878283, -2.743071)
 curve = SubResource("Curve3D_j5k5y")
 
+[node name="Torre1" parent="." instance=ExtResource("2_torre")]
+position = Vector3(-2, 0.62, 1.5)
+
+[node name="Identificador" type="Label3D" parent="Torre1"]
+position = Vector3(0, 0.82, 0)
+billboard = 1
+text = "1"
+font_size = 96
+outline_size = 16
+pixel_size = 0.007
+outline_modulate = Color(0.035, 0.055, 0.07, 1)
+
+[node name="Torre2" parent="." instance=ExtResource("2_torre")]
+position = Vector3(3.4, 0.62, 3.8)
+
+[node name="Identificador" type="Label3D" parent="Torre2"]
+position = Vector3(0, 0.82, 0)
+billboard = 1
+text = "2"
+font_size = 96
+outline_size = 16
+pixel_size = 0.007
+outline_modulate = Color(0.035, 0.055, 0.07, 1)
+
+[node name="Torre3" parent="." instance=ExtResource("2_torre")]
+position = Vector3(4.5, 0.62, 8)
+
+[node name="Identificador" type="Label3D" parent="Torre3"]
+position = Vector3(0, 0.82, 0)
+billboard = 1
+text = "3"
+font_size = 96
+outline_size = 16
+pixel_size = 0.007
+outline_modulate = Color(0.035, 0.055, 0.07, 1)
+
+[node name="Torre4" parent="." instance=ExtResource("2_torre")]
+position = Vector3(-6, 0.62, 8.5)
+
+[node name="Identificador" type="Label3D" parent="Torre4"]
+position = Vector3(0, 0.82, 0)
+billboard = 1
+text = "4"
+font_size = 96
+outline_size = 16
+pixel_size = 0.007
+outline_modulate = Color(0.035, 0.055, 0.07, 1)
+
 [node name="HUD" type="CanvasLayer" parent="." unique_id=922765045]
 process_mode = 3
 
 [node name="VidaLabel" type="Label" parent="HUD" unique_id=1998607069]
 offset_left = 20.0
 offset_top = 20.0
-offset_right = 220.0
-offset_bottom = 58.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 26
-text = "100"
+offset_right = 280.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(1, 0.18, 0.2, 1)
+theme_override_colors/font_outline_color = Color(0.12, 0.015, 0.02, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 32
+text = "VIDA: 100"
 
-[node name="DinheiroLabel" type="Label" parent="HUD"]
+[node name="EnergiaLabel" type="Label" parent="HUD"]
 visible = false
 anchors_preset = 1
 anchor_left = 1.0
@@ -72,10 +125,21 @@ offset_left = -204.0
 offset_top = 20.0
 offset_right = -24.0
 offset_bottom = 58.0
-theme_override_colors/font_color = Color(1, 0.88, 0.3, 1)
-theme_override_font_sizes/font_size = 24
-text = "R$ 100"
+theme_override_colors/font_color = Color(0.35, 0.95, 1, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.07, 0.09, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 30
+text = "100 E"
 horizontal_alignment = 2
+
+[node name="GerenciarTorres" type="Button" parent="HUD"]
+visible = false
+offset_left = 20.0
+offset_top = 68.0
+offset_right = 190.0
+offset_bottom = 112.0
+theme_override_font_sizes/font_size = 20
+text = "Ativar torres"
 
 [node name="MenuInicial" type="Control" parent="HUD"]
 layout_mode = 3
@@ -110,35 +174,17 @@ alignment = 1
 [node name="Titulo" type="Label" parent="HUD/MenuInicial/Centralizar/Conteudo"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.91, 0.96, 0.92, 1)
-theme_override_font_sizes/font_size = 58
+theme_override_font_sizes/font_size = 64
 text = "Tower Defense"
 horizontal_alignment = 1
 
 [node name="Play" type="Button" parent="HUD/MenuInicial/Centralizar/Conteudo"]
 custom_minimum_size = Vector2(220, 62)
 layout_mode = 2
-theme_override_font_sizes/font_size = 26
+theme_override_font_sizes/font_size = 30
 text = "Play"
 
-[node name="AreaPosicionamento" type="Button" parent="HUD"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_mode = 0
-flat = true
-text = ""
-mouse_default_cursor_shape = 2
-
-[node name="TimerPreviaPosicionamento" type="Timer" parent="HUD"]
-process_mode = 3
-wait_time = 0.05
-autostart = true
-
-[node name="MenuJogo" type="Control" parent="HUD"]
+[node name="MenuTorres" type="Control" parent="HUD"]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -148,7 +194,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Fundo" type="ColorRect" parent="HUD/MenuJogo"]
+[node name="Fundo" type="ColorRect" parent="HUD/MenuTorres"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -158,63 +204,135 @@ grow_vertical = 2
 color = Color(0.015, 0.035, 0.04, 0.18)
 mouse_filter = 2
 
-[node name="Painel" type="PanelContainer" parent="HUD/MenuJogo"]
-custom_minimum_size = Vector2(380, 590)
+[node name="Painel" type="PanelContainer" parent="HUD/MenuTorres"]
+custom_minimum_size = Vector2(430, 570)
 layout_mode = 1
 anchors_preset = 0
 offset_left = 24.0
-offset_top = 76.0
-offset_right = 404.0
-offset_bottom = 666.0
+offset_top = 72.0
+offset_right = 454.0
+offset_bottom = 642.0
 
-[node name="Conteudo" type="VBoxContainer" parent="HUD/MenuJogo/Painel"]
+[node name="Conteudo" type="VBoxContainer" parent="HUD/MenuTorres/Painel"]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 8
 
-[node name="Titulo" type="Label" parent="HUD/MenuJogo/Painel/Conteudo"]
+[node name="Titulo" type="Label" parent="HUD/MenuTorres/Painel/Conteudo"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
-text = "Torres disponíveis"
+text = "Ativação das torres"
 horizontal_alignment = 1
 
-[node name="Instrucao" type="Label" parent="HUD/MenuJogo/Painel/Conteudo"]
-custom_minimum_size = Vector2(340, 68)
+[node name="Instrucao" type="Label" parent="HUD/MenuTorres/Painel/Conteudo"]
+custom_minimum_size = Vector2(390, 54)
 layout_mode = 2
-text = "Segure e arraste uma torre até o terreno, ou selecione e clique. O círculo mostra o alcance; a rota fica bloqueada."
+text = "Escolha como ativar cada torre. As desligadas não atacam; você pode abrir este painel durante a partida."
 autowrap_mode = 3
 
-[node name="TorreBasica" type="Button" parent="HUD/MenuJogo/Painel/Conteudo"]
-custom_minimum_size = Vector2(340, 54)
+[node name="Torre1" type="VBoxContainer" parent="HUD/MenuTorres/Painel/Conteudo"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Estado" type="Label" parent="HUD/MenuTorres/Painel/Conteudo/Torre1"]
+layout_mode = 2
+text = "Torre 1 — desligada"
+
+[node name="Linha" type="HBoxContainer" parent="HUD/MenuTorres/Painel/Conteudo/Torre1"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="AtivarBasica" type="Button" parent="HUD/MenuTorres/Painel/Conteudo/Torre1/Linha"]
+custom_minimum_size = Vector2(175, 44)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-toggle_mode = true
-text = "Torre básica — R$ 75"
+text = "Normal · 75 E"
 
-[node name="InfoBasica" type="Label" parent="HUD/MenuJogo/Painel/Conteudo"]
-layout_mode = 2
-text = "Dano 25  •  Alcance 3,5  •  Disparo a cada 1 s"
-horizontal_alignment = 1
-
-[node name="TorreRapida" type="Button" parent="HUD/MenuJogo/Painel/Conteudo"]
-custom_minimum_size = Vector2(340, 54)
+[node name="AtivarRapida" type="Button" parent="HUD/MenuTorres/Painel/Conteudo/Torre1/Linha"]
+custom_minimum_size = Vector2(175, 44)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-toggle_mode = true
-text = "Torre rápida — R$ 60"
+text = "Rápida · 60 E"
 
-[node name="InfoRapida" type="Label" parent="HUD/MenuJogo/Painel/Conteudo"]
+[node name="Torre2" type="VBoxContainer" parent="HUD/MenuTorres/Painel/Conteudo"]
 layout_mode = 2
-text = "Dano 10  •  Alcance 2,5  •  Disparo a cada 0,3 s"
-horizontal_alignment = 1
+theme_override_constants/separation = 4
 
-[node name="Status" type="Label" parent="HUD/MenuJogo/Painel/Conteudo"]
-custom_minimum_size = Vector2(340, 68)
+[node name="Estado" type="Label" parent="HUD/MenuTorres/Painel/Conteudo/Torre2"]
 layout_mode = 2
-text = "Selecione uma torre para começar a posicioná-la."
+text = "Torre 2 — desligada"
+
+[node name="Linha" type="HBoxContainer" parent="HUD/MenuTorres/Painel/Conteudo/Torre2"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="AtivarBasica" type="Button" parent="HUD/MenuTorres/Painel/Conteudo/Torre2/Linha"]
+custom_minimum_size = Vector2(175, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Normal · 75 E"
+
+[node name="AtivarRapida" type="Button" parent="HUD/MenuTorres/Painel/Conteudo/Torre2/Linha"]
+custom_minimum_size = Vector2(175, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Rápida · 60 E"
+
+[node name="Torre3" type="VBoxContainer" parent="HUD/MenuTorres/Painel/Conteudo"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Estado" type="Label" parent="HUD/MenuTorres/Painel/Conteudo/Torre3"]
+layout_mode = 2
+text = "Torre 3 — desligada"
+
+[node name="Linha" type="HBoxContainer" parent="HUD/MenuTorres/Painel/Conteudo/Torre3"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="AtivarBasica" type="Button" parent="HUD/MenuTorres/Painel/Conteudo/Torre3/Linha"]
+custom_minimum_size = Vector2(175, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Normal · 75 E"
+
+[node name="AtivarRapida" type="Button" parent="HUD/MenuTorres/Painel/Conteudo/Torre3/Linha"]
+custom_minimum_size = Vector2(175, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Rápida · 60 E"
+
+[node name="Torre4" type="VBoxContainer" parent="HUD/MenuTorres/Painel/Conteudo"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Estado" type="Label" parent="HUD/MenuTorres/Painel/Conteudo/Torre4"]
+layout_mode = 2
+text = "Torre 4 — desligada"
+
+[node name="Linha" type="HBoxContainer" parent="HUD/MenuTorres/Painel/Conteudo/Torre4"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="AtivarBasica" type="Button" parent="HUD/MenuTorres/Painel/Conteudo/Torre4/Linha"]
+custom_minimum_size = Vector2(175, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Normal · 75 E"
+
+[node name="AtivarRapida" type="Button" parent="HUD/MenuTorres/Painel/Conteudo/Torre4/Linha"]
+custom_minimum_size = Vector2(175, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Rápida · 60 E"
+
+[node name="Status" type="Label" parent="HUD/MenuTorres/Painel/Conteudo"]
+custom_minimum_size = Vector2(390, 42)
+layout_mode = 2
+text = "Ative pelo menos uma torre para começar."
 autowrap_mode = 3
 
-[node name="Comecar" type="Button" parent="HUD/MenuJogo/Painel/Conteudo"]
-custom_minimum_size = Vector2(340, 58)
+[node name="Comecar" type="Button" parent="HUD/MenuTorres/Painel/Conteudo"]
+custom_minimum_size = Vector2(390, 54)
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "Começar jogo"
