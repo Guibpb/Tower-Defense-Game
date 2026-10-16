@@ -9,7 +9,7 @@
 margin = 2.858
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_wbfu4"]
-size = Vector2(50, 50)
+size = Vector2(54.5, 30.7)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tt7e2"]
 albedo_color = Color(0.18, 0.2, 0.23, 1)
@@ -18,11 +18,19 @@ roughness = 0.65
 
 [sub_resource type="Curve3D" id="Curve3D_j5k5y"]
 _data = {
-"points": PackedVector3Array(1.0817556, -0.0001487732, 1.1079438, -1.0817556, 0.0001487732, -1.1079438, -6.646316, -0.35878247, 3.9803386, 0, 0, 0, 0, 0, 0, -9.9707155, -0.35878247, 0.6943369, 0, 0, 0, 0, 0, 0, -13.50082, -0.35878247, 0.7514789, 0, 0, 0, 0, 0, 0, -16.109888, -0.35878247, -2.4324222, 0, 0, 0, 0, 0, 0, -11.510035, -0.35878247, -6.906927, 0, 0, 0, 0, 0, 0, -10.185363, -0.35878247, -5.8193665, 0, 0, 0, 0, 0, 0, -8.53861, -0.35878247, -4.1214924, 0, 0, 0, 0, 0, 0, -7.3132067, -0.35878152, -5.6601486),
+"points": PackedVector3Array(
+0, 0, 0, 0, 0, 1.275, 11.6025, -0.35878247, -10.8375,
+0, 0, -1.275, -1.785, 0, 0, 11.6025, -0.35878247, -7.0125,
+1.785, 0, 0, 0, 0, 1.275, -12.495, -0.35878247, -7.0125,
+0, 0, -1.275, 1.785, 0, 0, -12.495, -0.35878247, -1.275,
+-1.785, 0, 0, 0, 0, 1.275, 12.495, -0.35878247, -1.275,
+0, 0, -1.275, -1.785, 0, 0, 12.495, -0.35878247, 5.1,
+1.785, 0, 0, 0, 0, 1.275, -12.495, -0.35878247, 5.1,
+0, 0, -1.275, 0, 0, 0, -12.495, -0.35878247, 10.8375),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 8
-
+bake_interval = 0.2
 [node name="Game" type="Node3D" unique_id=1938844436]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.50910604, 0)
 script = ExtResource("1_u44n3")
@@ -46,16 +54,16 @@ physics_material_override = SubResource("PhysicsMaterial_vtaim")
 shape = SubResource("WorldBoundaryShape3D_vtaim")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Chão/StaticBody3D" unique_id=1971918651]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7862451, 0.1208331, 0.4135188)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.15, 0.1208331, 0)
 mesh = SubResource("PlaneMesh_wbfu4")
 surface_material_override/0 = SubResource("StandardMaterial3D_tt7e2")
 
 [node name="Path3D" type="Path3D" parent="." unique_id=416347350]
-transform = Transform3D(-0.7062941, 0, 0.70791835, 0, 1, 0, -0.70791835, 0, -0.7062941, -7.224251, 0.35878283, -2.743071)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35878283, 0)
 curve = SubResource("Curve3D_j5k5y")
 
 [node name="Torre1" parent="." instance=ExtResource("2_torre")]
-position = Vector3(-2, 0.62, 1.5)
+position = Vector3(0, 0.62, -8.2875)
 
 [node name="Identificador" type="Label3D" parent="Torre1"]
 position = Vector3(0, 0.82, 0)
@@ -67,7 +75,7 @@ pixel_size = 0.007
 outline_modulate = Color(0.035, 0.055, 0.07, 1)
 
 [node name="Torre2" parent="." instance=ExtResource("2_torre")]
-position = Vector3(3.4, 0.62, 3.8)
+position = Vector3(-10.71, 0.62, -2.55)
 
 [node name="Identificador" type="Label3D" parent="Torre2"]
 position = Vector3(0, 0.82, 0)
@@ -79,7 +87,7 @@ pixel_size = 0.007
 outline_modulate = Color(0.035, 0.055, 0.07, 1)
 
 [node name="Torre3" parent="." instance=ExtResource("2_torre")]
-position = Vector3(4.5, 0.62, 8)
+position = Vector3(10.71, 0.62, 3.825)
 
 [node name="Identificador" type="Label3D" parent="Torre3"]
 position = Vector3(0, 0.82, 0)
@@ -91,7 +99,7 @@ pixel_size = 0.007
 outline_modulate = Color(0.035, 0.055, 0.07, 1)
 
 [node name="Torre4" parent="." instance=ExtResource("2_torre")]
-position = Vector3(-6, 0.62, 8.5)
+position = Vector3(-10.71, 0.62, 8.2875)
 
 [node name="Identificador" type="Label3D" parent="Torre4"]
 position = Vector3(0, 0.82, 0)

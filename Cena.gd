@@ -9,7 +9,7 @@ const FAST_TOWER_COST = 60
 @export var enemy_vertical_offset = 0.62
 @export var player_health = 100
 @export var player_energy: int = 100
-@export var path_visual_width: float = 1.6
+@export var path_visual_width: float = 0.8925
 @export var path_surface_offset: float = 0.13
 
 @onready var caminho: Path3D = $Path3D
@@ -169,9 +169,9 @@ func _on_game_play_pressed() -> void:
 
 func _configurar_camera() -> void:
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
-	camera.size = 18.0
-	var centro_mapa := Vector3(-1.5, malha_chao.global_position.y, 5.0)
-	camera.global_position = centro_mapa + Vector3(0.0, 20.0, 21.0)
+	camera.size = 29.5
+	var centro_mapa := Vector3(-8.15, malha_chao.global_position.y, 0.0)
+	camera.global_position = centro_mapa + Vector3(0.0, 34.0, 8.0)
 	camera.look_at(centro_mapa, Vector3.UP)
 
 func _criar_visual_do_caminho() -> void:
