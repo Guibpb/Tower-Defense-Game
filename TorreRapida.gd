@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 @export var speed = 0
 @export var gravity = 9.8
-@export var shot_range = 4
+@export var shot_range = 2.5
 @export var shot_interval = 0.3
 @export var damage = 10
 @export var projectile_scene: PackedScene = preload("res://Projectile.tscn")
@@ -11,6 +11,7 @@ var shot_timer = 0.0
 
 func _ready():
 	add_to_group("torres")
+	_criar_visual_de_alcance()
 
 func _physics_process(delta):
 	velocity.x = 0.0
@@ -49,3 +50,44 @@ func shoot_at_first_enemy():
 	projectile.global_position = global_position + direction * 0.8 + Vector3.UP * 0.2
 	projectile.direction = direction
 	shot_timer = shot_interval
+
+func _criar_visual_de_alcance() -> void:
+	var segmentos := 64
+	var espessura := 0.055
+	var vertices := PackedVector3Array()
+	var indices := PackedInt32Array()
+	var raio_interno := maxf(0.0, shot_range - espessura)
+
+	for i in range(segmentos):
+		var angulo := TAU * float(i) / float(segmentos)
+		var cosseno := cos(angulo)
+		var seno := sin(angulo)
+		vertices.append(Vector3(cosseno * shot_range, 0.0, seno * shot_range))
+		vertices.append(Vector3(cosseno * raio_interno, 0.0, seno * raio_interno))
+		var proximo := (i + 1) % segmentos
+		var base := i * 2
+		var base_proximo := proximo * 2
+		indices.append_array(PackedInt32Array([base, base + 1, base_proximo, base + 1, base_proximo + 1, base_proximo]))
+
+	var arrays := []
+	arrays.resize(Mesh.ARRAY_MAX)
+	arrays[Mesh.ARRAY_VERTEX] = vertices
+	arrays[Mesh.ARRAY_INDEX] = indices
+	var anel := ArrayMesh.new()
+	_anel_add_surface(anel, arrays)
+	var material := StandardMaterial3D.new()
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	material.cull_mode = BaseMaterial3D.CULL_DISABLED
+	material.albedo_color = Color(0.18, 0.82, 1.0, 0.8)
+	anel.surface_set_material(0, material)
+
+	var visual := MeshInstance3D.new()
+	visual.name = "IndicadorAlcance"
+	visual.position.y = -0.36
+	visual.mesh = anel
+	visual.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	add_child(visual)
+
+func _anel_add_surface(anel: ArrayMesh, arrays: Array) -> void:
+	anel.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)

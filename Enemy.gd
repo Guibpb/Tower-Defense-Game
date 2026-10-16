@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 signal reached_end
+signal defeated
 
 @export var speed = 3
 @export var gravity = 9.8
@@ -10,6 +11,7 @@ signal reached_end
 var health = 25
 var shot_timer = 0.0
 var caminho: PathFollow3D
+var death_processed := false
 
 func _ready():
 	add_to_group("inimigos")
@@ -30,6 +32,10 @@ func _physics_process(delta) -> void:
 		queue_free()
 
 func take_damage(amount):
+	if death_processed:
+		return
 	health -= amount
 	if health <= 0:
+		death_processed = true
+		defeated.emit()
 		queue_free()

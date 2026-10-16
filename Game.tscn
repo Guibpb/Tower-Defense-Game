@@ -63,6 +63,20 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 26
 text = "100"
 
+[node name="DinheiroLabel" type="Label" parent="HUD"]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -204.0
+offset_top = 20.0
+offset_right = -24.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(1, 0.88, 0.3, 1)
+theme_override_font_sizes/font_size = 24
+text = "R$ 100"
+horizontal_alignment = 2
+
 [node name="MenuInicial" type="Control" parent="HUD"]
 layout_mode = 3
 anchors_preset = 15
@@ -119,6 +133,11 @@ flat = true
 text = ""
 mouse_default_cursor_shape = 2
 
+[node name="TimerPreviaPosicionamento" type="Timer" parent="HUD"]
+process_mode = 3
+wait_time = 0.05
+autostart = true
+
 [node name="MenuJogo" type="Control" parent="HUD"]
 visible = false
 layout_mode = 3
@@ -161,7 +180,7 @@ horizontal_alignment = 1
 [node name="Instrucao" type="Label" parent="HUD/MenuJogo/Painel/Conteudo"]
 custom_minimum_size = Vector2(340, 68)
 layout_mode = 2
-text = "Escolha uma torre e clique no terreno para posicioná-la. Você pode colocar várias."
+text = "Segure e arraste uma torre até o terreno, ou selecione e clique. O círculo mostra o alcance; a rota fica bloqueada."
 autowrap_mode = 3
 
 [node name="TorreBasica" type="Button" parent="HUD/MenuJogo/Painel/Conteudo"]
@@ -169,11 +188,11 @@ custom_minimum_size = Vector2(340, 54)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 toggle_mode = true
-text = "Torre básica"
+text = "Torre básica — R$ 75"
 
 [node name="InfoBasica" type="Label" parent="HUD/MenuJogo/Painel/Conteudo"]
 layout_mode = 2
-text = "Dano 25  •  Alcance 6  •  Disparo a cada 1 s"
+text = "Dano 25  •  Alcance 3,5  •  Disparo a cada 1 s"
 horizontal_alignment = 1
 
 [node name="TorreRapida" type="Button" parent="HUD/MenuJogo/Painel/Conteudo"]
@@ -181,11 +200,11 @@ custom_minimum_size = Vector2(340, 54)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 toggle_mode = true
-text = "Torre rápida"
+text = "Torre rápida — R$ 60"
 
 [node name="InfoRapida" type="Label" parent="HUD/MenuJogo/Painel/Conteudo"]
 layout_mode = 2
-text = "Dano 10  •  Alcance 4  •  Disparo a cada 0,3 s"
+text = "Dano 10  •  Alcance 2,5  •  Disparo a cada 0,3 s"
 horizontal_alignment = 1
 
 [node name="Status" type="Label" parent="HUD/MenuJogo/Painel/Conteudo"]
